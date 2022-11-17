@@ -1,6 +1,5 @@
 package com.coursemngsys.coursemanagementsystem;
 
-
 import java.sql.*;
 
 public class DbUtils {
