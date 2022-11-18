@@ -10,7 +10,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 public class CourseHibernateController {
-    private SessionFactory factory = null;
+    private SessionFactory factory;
+
 
     public CourseHibernateController(SessionFactory factory) {
         this.factory = factory;
