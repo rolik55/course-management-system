@@ -113,7 +113,8 @@ public class CourseHibernateController {
                 session.close();
             }
         }
-        return null;
+        return Collections.emptyList();
+
     }
 
 }
