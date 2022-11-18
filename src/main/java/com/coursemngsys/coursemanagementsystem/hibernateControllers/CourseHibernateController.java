@@ -24,7 +24,8 @@ public class CourseHibernateController {
         Session session = null;
         try{
             session = getSession();
-            Transaction tx = session.beginTransaction();
+            Transaction transaction = session.beginTransaction();
+
             session.save(course);
             tx.commit();
         } catch (Exception e){
