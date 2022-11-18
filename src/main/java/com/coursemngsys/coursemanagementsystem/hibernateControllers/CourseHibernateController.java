@@ -93,7 +93,8 @@ public class CourseHibernateController {
         return course;
     }
 
-    public List<Course> getAllCourses(boolean all, int resMax, int resFirst){
+    public List<Course> getAllCourses(boolean getAll, int numOfResults, int firstResult){
+
         Session session = null;
         try {
             session = getSession();
