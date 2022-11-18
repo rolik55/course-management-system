@@ -63,7 +63,8 @@ public class CourseHibernateController {
                 course = session.getReference(Course.class, id);
                 course.getId();
             } catch (Exception e){
-                System.out.println("No such user by given ID");
+                throw new Exception("No such user by given ID", e);
+
             }
             session.remove(course);
             tx.commit();
