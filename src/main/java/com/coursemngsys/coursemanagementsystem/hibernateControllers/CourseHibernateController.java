@@ -60,13 +60,7 @@ public class CourseHibernateController {
             session = getSession();
             Transaction tx = session.beginTransaction();
             Course course = null;
-            try{
-                course = session.getReference(Course.class, id);
-                course.getId();
-            } catch (Exception e){
-                throw new Exception("No such user by given ID", e);
-
-            }
+            course = getCourseById(id);
             session.remove(course);
             tx.commit();
         } catch (Exception e){
@@ -88,24 +82,18 @@ public class CourseHibernateController {
             course.getId();
             tx.commit();
         } catch (Exception e){
-            System.out.println("No such user by given ID");
+            System.out.println("No such course by given ID");
         }
         return course;
     }
 
-    public List<Course> getAllCourses(boolean getAll, int numOfResults, int firstResult){
-
+        public List<Course> getAllCourses(){
         Session session = null;
         try {
             session = getSession();
             CriteriaQuery<Object> query = session.getCriteriaBuilder().createQuery();
             query.select(query.from(Course.class));
             Query q = session.createQuery(query);
-
-            if (!all) {
-                q.setMaxResults(resMax);
-                q.setFirstResult(resFirst);
-            }
             return q.getResultList();
         }catch (Exception e){
             e.printStackTrace();
@@ -114,8 +102,26 @@ public class CourseHibernateController {
                 session.close();
             }
         }
-        return Collections.emptyList();
-
+        return null;
     }
-
+    
+    public List<Course> getSpecificCourses(int resMax, int resFirst){
+        Session session = null;
+        try {
+            session = getSession();
+            CriteriaQuery<Object> query = session.getCriteriaBuilder().createQuery();
+            query.select(query.from(Course.class));
+            Query q = session.createQuery(query);
+            q.setMaxResults(resMax);
+            q.setFirstResult(resFirst);
+            return q.getResultList();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if(session != null){
+                session.close();
+            }
+        }
+        return null;
+    }
 }
