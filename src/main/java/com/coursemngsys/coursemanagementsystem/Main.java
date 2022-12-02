@@ -1,16 +1,11 @@
 package com.coursemngsys.coursemanagementsystem;
 
-import com.coursemngsys.coursemanagementsystem.Model.Course;
-import com.coursemngsys.coursemanagementsystem.hibernateControllers.CourseHibernateController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 
 public class Main extends Application {

@@ -1,7 +1,7 @@
 package com.coursemngsys.coursemanagementsystem.webcontrollers;
 
 import com.coursemngsys.coursemanagementsystem.Model.Folder;
-import com.coursemngsys.coursemanagementsystem.hibernateControllers.FolderHibernateController;
+import com.coursemngsys.coursemanagementsystem.hibernatecontrollers.FolderHibernateController;
 import com.google.gson.Gson;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;

@@ -4,7 +4,7 @@ import com.coursemngsys.coursemanagementsystem.DbUtils;
 import com.coursemngsys.coursemanagementsystem.Main;
 import com.coursemngsys.coursemanagementsystem.Model.Moderator;
 import com.coursemngsys.coursemanagementsystem.Model.Student;
-import com.coursemngsys.coursemanagementsystem.hibernateControllers.UserHibernateController;
+import com.coursemngsys.coursemanagementsystem.hibernatecontrollers.UserHibernateController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +26,7 @@ import java.time.Year;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class SignUpForm implements Initializable {
+public class SignUpForm {
     @FXML
     private TextField loginField;
     @FXML
@@ -46,10 +46,6 @@ public class SignUpForm implements Initializable {
     @FXML
     private ToggleGroup userType;
     private Connection connection;
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-    }
 
     public void createUser(ActionEvent actionEvent) throws IOException{
         DbUtils.createDb();

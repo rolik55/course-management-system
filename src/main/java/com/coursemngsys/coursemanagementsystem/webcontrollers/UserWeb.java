@@ -4,7 +4,7 @@ import com.coursemngsys.coursemanagementsystem.DbUtils;
 import com.coursemngsys.coursemanagementsystem.Model.Moderator;
 import com.coursemngsys.coursemanagementsystem.Model.Student;
 import com.coursemngsys.coursemanagementsystem.Model.User;
-import com.coursemngsys.coursemanagementsystem.hibernateControllers.UserHibernateController;
+import com.coursemngsys.coursemanagementsystem.hibernatecontrollers.UserHibernateController;
 import com.coursemngsys.coursemanagementsystem.serializers.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

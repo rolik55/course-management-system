@@ -1,6 +1,5 @@
-package com.coursemngsys.coursemanagementsystem.hibernateControllers;
+package com.coursemngsys.coursemanagementsystem.hibernatecontrollers;
 
-import com.coursemngsys.coursemanagementsystem.Model.Course;
 import com.coursemngsys.coursemanagementsystem.Model.Moderator;
 import com.coursemngsys.coursemanagementsystem.Model.Student;
 import com.coursemngsys.coursemanagementsystem.Model.User;
@@ -10,14 +9,18 @@ import org.hibernate.Transaction;
 
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UserHibernateController {
     private SessionFactory factory = null;
+    private Logger logger = null;
 
     public UserHibernateController(SessionFactory factory) {
         this.factory = factory;
+        this.logger = Logger.getLogger(UserHibernateController.class.getName());
     }
 
     private Session getSession() {
@@ -46,7 +49,6 @@ public class UserHibernateController {
             session = getSession();
             Transaction tx = session.beginTransaction();
             session.merge(user);
-            //session.update(user);
             tx.commit();
         } catch (Exception e){
             e.printStackTrace();
@@ -67,7 +69,7 @@ public class UserHibernateController {
             session.remove(user);
             tx.commit();
         } catch (Exception e){
-            System.out.println("No such user by given ID");
+            logger.log(Level.INFO,"No such user by given ID");
         } finally {
             if(session != null){
                 session.close();
@@ -84,18 +86,23 @@ public class UserHibernateController {
             user = session.find(User.class, id);
             tx.commit();
         } catch (Exception e){
-            System.out.println("No such user by given ID");
+            logger.log(Level.INFO,"No such user by given ID");
         }
         return user;
     }
 
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers(boolean all, int resMax, int resFirst){
         Session session = null;
         try {
             session = getSession();
             CriteriaQuery<Object> query = session.getCriteriaBuilder().createQuery();
             query.select(query.from(User.class));
             Query q = session.createQuery(query);
+
+            if (!all) {
+                q.setMaxResults(resMax);
+                q.setFirstResult(resFirst);
+            }
             return q.getResultList();
         }catch (Exception e){
             e.printStackTrace();
@@ -104,7 +111,7 @@ public class UserHibernateController {
                 session.close();
             }
         }
-        return new ArrayList<>();
+        return Collections.emptyList();
     }
 
     public List<Student> getAllStudents(){
@@ -122,7 +129,7 @@ public class UserHibernateController {
                 session.close();
             }
         }
-        return new ArrayList<>();
+        return Collections.emptyList();
     }
 
     public List<Moderator> getAllModerators(){
@@ -140,6 +147,6 @@ public class UserHibernateController {
                 session.close();
             }
         }
-        return new ArrayList<>();
+        return Collections.emptyList();
     }
 }

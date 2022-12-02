@@ -1,7 +1,7 @@
 package com.coursemngsys.coursemanagementsystem.webcontrollers;
 
 import com.coursemngsys.coursemanagementsystem.Model.Course;
-import com.coursemngsys.coursemanagementsystem.hibernateControllers.CourseHibernateController;
+import com.coursemngsys.coursemanagementsystem.hibernatecontrollers.CourseHibernateController;
 import com.coursemngsys.coursemanagementsystem.serializers.CourseSerializer;
 import com.coursemngsys.coursemanagementsystem.serializers.LocalDateSerializer;
 import com.google.gson.Gson;
