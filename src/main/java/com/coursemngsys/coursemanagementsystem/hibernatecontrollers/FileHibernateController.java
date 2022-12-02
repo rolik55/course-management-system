@@ -1,4 +1,4 @@
-package com.coursemngsys.coursemanagementsystem.hibernateControllers;
+package com.coursemngsys.coursemanagementsystem.hibernatecontrollers;
 
 import com.coursemngsys.coursemanagementsystem.Model.File;
 import org.hibernate.Session;
@@ -7,6 +7,8 @@ import org.hibernate.Transaction;
 
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class FileHibernateController {
@@ -90,18 +92,13 @@ public class FileHibernateController {
         return file;
     }
 
-    public List<File> getAllFiles(boolean all, int resMax, int resFirst){
+    public List<File> getAllFiles(){
         Session session = null;
         try {
             session = getSession();
             CriteriaQuery<Object> query = session.getCriteriaBuilder().createQuery();
             query.select(query.from(File.class));
             Query q = session.createQuery(query);
-
-            if (!all) {
-                q.setMaxResults(resMax);
-                q.setFirstResult(resFirst);
-            }
             return q.getResultList();
         }catch (Exception e){
             e.printStackTrace();
@@ -110,7 +107,7 @@ public class FileHibernateController {
                 session.close();
             }
         }
-        return null;
+        return Collections.emptyList();
     }
 
 }

@@ -5,7 +5,7 @@ import com.coursemngsys.coursemanagementsystem.DbUtils;
 import com.coursemngsys.coursemanagementsystem.Main;
 import com.coursemngsys.coursemanagementsystem.Model.Moderator;
 import com.coursemngsys.coursemanagementsystem.Model.User;
-import com.coursemngsys.coursemanagementsystem.hibernateControllers.UserHibernateController;
+import com.coursemngsys.coursemanagementsystem.hibernatecontrollers.UserHibernateController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -65,7 +65,7 @@ public class LoginWindow{
         connection = DbUtils.connectToDb();
         SessionFactory factory = new Configuration().configure().buildSessionFactory();
         UserHibernateController userHibControl = new UserHibernateController(factory);
-        User user = userHibControl.getAllUsers(true,0,0).stream().filter(c -> c.getLogin().equals(loginField.getText())).filter(c -> c.getPassword().equals(passwordField.getText())).findFirst().orElse(null);
+        User user = userHibControl.getAllUsers().stream().filter(c -> c.getLogin().equals(loginField.getText())).filter(c -> c.getPassword().equals(passwordField.getText())).findFirst().orElse(null);
         DbUtils.disconnectFromDb(connection);
         return user;
     }

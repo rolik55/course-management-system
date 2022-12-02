@@ -1,8 +1,7 @@
 package com.coursemngsys.coursemanagementsystem.fxControllers;
 
 import com.coursemngsys.coursemanagementsystem.Model.Course;
-import com.coursemngsys.coursemanagementsystem.hibernateControllers.CourseHibernateController;
-import com.coursemngsys.coursemanagementsystem.hibernateControllers.UserHibernateController;
+import com.coursemngsys.coursemanagementsystem.hibernatecontrollers.CourseHibernateController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;

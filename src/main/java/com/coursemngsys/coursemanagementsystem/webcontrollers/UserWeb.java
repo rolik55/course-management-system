@@ -1,11 +1,10 @@
-package com.coursemngsys.coursemanagementsystem.webControllers;
+package com.coursemngsys.coursemanagementsystem.webcontrollers;
 
 import com.coursemngsys.coursemanagementsystem.DbUtils;
-import com.coursemngsys.coursemanagementsystem.Model.Course;
 import com.coursemngsys.coursemanagementsystem.Model.Moderator;
 import com.coursemngsys.coursemanagementsystem.Model.Student;
 import com.coursemngsys.coursemanagementsystem.Model.User;
-import com.coursemngsys.coursemanagementsystem.hibernateControllers.UserHibernateController;
+import com.coursemngsys.coursemanagementsystem.hibernatecontrollers.UserHibernateController;
 import com.coursemngsys.coursemanagementsystem.serializers.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -22,7 +21,14 @@ import java.util.Properties;
 
 @Controller
 public class UserWeb {
-
+    private static final String PROPERTY_PASSWORD = "password";
+    private static final String PROPERTY_LOGIN = "login";
+    private static final String PROPERTY_NAME = "name";
+    private static final String PROPERTY_SURNAME = "surname";
+    private static final String PROPERTY_EMAIL = "email";
+    private static final String PROPERTY_STUDENT_NUMBER = "studentNumber";
+    protected static final String STATUS_SUCCESS = "Success";
+    private static final
     SessionFactory factory = new Configuration().configure().buildSessionFactory();
     UserHibernateController userHibControl = new UserHibernateController(factory);
 
@@ -40,7 +46,7 @@ public class UserWeb {
         Connection connection = DbUtils.connectToDb();
         Gson gson = new Gson();
         Properties properties = gson.fromJson(request, Properties.class);
-        User user = userHibControl.getAllUsers(true,0,0).stream().filter(c -> c.getLogin().equals(properties.getProperty("login"))).filter(c -> c.getPassword().equals(properties.getProperty("password"))).findFirst().orElse(null);
+        User user = userHibControl.getAllUsers().stream().filter(c -> c.getLogin().equals(properties.getProperty(PROPERTY_LOGIN))).filter(c -> c.getPassword().equals(properties.getProperty(PROPERTY_PASSWORD))).findFirst().orElse(null);
         GsonBuilder gsonBuilder = new GsonBuilder();
         if(user instanceof Moderator){
             gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateSerializer()).registerTypeAdapter(Moderator.class, new ModeratorSerializer());
@@ -59,15 +65,15 @@ public class UserWeb {
     public String createStudent(@RequestBody String request){
         Gson gson = new Gson();
         Properties properties = gson.fromJson(request, Properties.class);
-        Student student = new Student(properties.getProperty("login"), properties.getProperty("password"), properties.getProperty("name"), properties.getProperty("surname"), properties.getProperty("email"), properties.getProperty("studentNumber"));
+        Student student = new Student(properties.getProperty(PROPERTY_LOGIN), properties.getProperty(PROPERTY_PASSWORD), properties.getProperty(PROPERTY_NAME), properties.getProperty(PROPERTY_SURNAME), properties.getProperty(PROPERTY_EMAIL), properties.getProperty(PROPERTY_STUDENT_NUMBER));
         userHibControl.createUser(student);
-        return "Success";
+        return STATUS_SUCCESS;
     }
 
     @RequestMapping(value = "user/getAllUsers", method = RequestMethod.GET)
     @ResponseBody
     public String getAllUsers(){
-        List<User> users = userHibControl.getAllUsers(true,1,1);
+        List<User> users = userHibControl.getAllUsers();
         return users.toString();
     }
 
@@ -95,7 +101,7 @@ public class UserWeb {
     @ResponseBody
     public String deleteUser(@RequestParam("id") int id){
         userHibControl.removeUser(id);
-        return "Success";
+        return STATUS_SUCCESS;
     }
 
     @RequestMapping(value = "user/createMod", method = RequestMethod.POST)
@@ -104,9 +110,9 @@ public class UserWeb {
     public String createMod(@RequestBody String request){
         Gson gson = new Gson();
         Properties properties = gson.fromJson(request, Properties.class);
-        Moderator mod = new Moderator(properties.getProperty("login"), properties.getProperty("password"), properties.getProperty("name"), properties.getProperty("surname"), properties.getProperty("email"));
+        Moderator mod = new Moderator(properties.getProperty(PROPERTY_LOGIN), properties.getProperty(PROPERTY_PASSWORD), properties.getProperty(PROPERTY_NAME), properties.getProperty(PROPERTY_SURNAME), properties.getProperty(PROPERTY_EMAIL));
         userHibControl.createUser(mod);
-        return "Success";
+        return STATUS_SUCCESS;
     }
 
     @RequestMapping(value = "user/updateStudent", method = RequestMethod.PUT)
@@ -114,9 +120,9 @@ public class UserWeb {
     public String updateStudent(@RequestBody String request){
         Gson gson = new Gson();
         Properties properties = gson.fromJson(request, Properties.class);
-        Student student = new Student(properties.getProperty("login"), properties.getProperty("password"), properties.getProperty("name"), properties.getProperty("surname"), properties.getProperty("email"), properties.getProperty("studentNumber"));
+        Student student = new Student(properties.getProperty(PROPERTY_LOGIN), properties.getProperty(PROPERTY_PASSWORD), properties.getProperty(PROPERTY_NAME), properties.getProperty(PROPERTY_SURNAME), properties.getProperty(PROPERTY_EMAIL), properties.getProperty(PROPERTY_STUDENT_NUMBER));
         userHibControl.editUser(student);
-        return "Success";
+        return STATUS_SUCCESS;
     }
 
     @RequestMapping(value = "user/updateMod", method = RequestMethod.PUT)
@@ -125,8 +131,8 @@ public class UserWeb {
     public String updateMod(@RequestBody String request){
         Gson gson = new Gson();
         Properties properties = gson.fromJson(request, Properties.class);
-        Moderator mod = new Moderator(properties.getProperty("login"), properties.getProperty("password"), properties.getProperty("name"), properties.getProperty("surname"), properties.getProperty("email"));
+        Moderator mod = new Moderator(properties.getProperty(PROPERTY_LOGIN), properties.getProperty(PROPERTY_PASSWORD), properties.getProperty(PROPERTY_NAME), properties.getProperty(PROPERTY_SURNAME), properties.getProperty(PROPERTY_EMAIL));
         userHibControl.editUser(mod);
-        return "Success";
+        return STATUS_SUCCESS;
     }
 }

@@ -3,7 +3,7 @@ package com.coursemngsys.coursemanagementsystem.fxControllers;
 import com.coursemngsys.coursemanagementsystem.Main;
 import com.coursemngsys.coursemanagementsystem.Model.Course;
 import com.coursemngsys.coursemanagementsystem.Model.Moderator;
-import com.coursemngsys.coursemanagementsystem.hibernateControllers.UserHibernateController;
+import com.coursemngsys.coursemanagementsystem.hibernatecontrollers.UserHibernateController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ModeratorCoursesWindow implements Initializable {
+public class ModeratorCoursesWindow {
     @FXML
     private ListView<Course> coursesList;
     @FXML
@@ -45,10 +45,6 @@ public class ModeratorCoursesWindow implements Initializable {
     public void fillList() {
         ObservableList<Course> courses = FXCollections.observableArrayList(moderator.getModeratedCourses());
         coursesList.setItems(courses);
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
     }
 
     public void openNewCourseForm(ActionEvent actionEvent) throws IOException {

@@ -14,8 +14,8 @@
         </property>
     </bean>
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="viewResolver" p:suffix=".jsp" p:prefix="/WEB-INF/jsp/"/>
-        <bean name="course" class="com.coursemngsys.coursemanagementsystem.webControllers.CourseWeb"/>
-        <bean name="file" class="com.coursemngsys.coursemanagementsystem.webControllers.FileWeb"/>
-        <bean name="user" class="com.coursemngsys.coursemanagementsystem.webControllers.UserWeb" />
-        <bean name="folder" class="com.coursemngsys.coursemanagementsystem.webControllers.FolderWeb"/>
+        <bean name="course" class="com.coursemngsys.coursemanagementsystem.webcontrollers.CourseWeb"/>
+        <bean name="file" class="com.coursemngsys.coursemanagementsystem.webcontrollers.FileWeb"/>
+        <bean name="user" class="com.coursemngsys.coursemanagementsystem.webcontrollers.UserWeb" />
+        <bean name="folder" class="com.coursemngsys.coursemanagementsystem.webcontrollers.FolderWeb"/>
 </beans>
