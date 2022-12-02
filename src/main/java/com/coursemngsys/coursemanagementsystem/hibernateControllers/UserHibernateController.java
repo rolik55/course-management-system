@@ -1,5 +1,6 @@
 package com.coursemngsys.coursemanagementsystem.hibernateControllers;
 
+import com.coursemngsys.coursemanagementsystem.Model.Course;
 import com.coursemngsys.coursemanagementsystem.Model.Moderator;
 import com.coursemngsys.coursemanagementsystem.Model.Student;
 import com.coursemngsys.coursemanagementsystem.Model.User;
@@ -9,6 +10,7 @@ import org.hibernate.Transaction;
 
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserHibernateController {
@@ -87,18 +89,13 @@ public class UserHibernateController {
         return user;
     }
 
-    public List<User> getAllUsers(boolean all, int resMax, int resFirst){
+    public List<User> getAllUsers(){
         Session session = null;
         try {
             session = getSession();
             CriteriaQuery<Object> query = session.getCriteriaBuilder().createQuery();
             query.select(query.from(User.class));
             Query q = session.createQuery(query);
-
-            if (!all) {
-                q.setMaxResults(resMax);
-                q.setFirstResult(resFirst);
-            }
             return q.getResultList();
         }catch (Exception e){
             e.printStackTrace();
@@ -107,7 +104,7 @@ public class UserHibernateController {
                 session.close();
             }
         }
-        return null;
+        return new ArrayList<>();
     }
 
     public List<Student> getAllStudents(){
@@ -125,7 +122,7 @@ public class UserHibernateController {
                 session.close();
             }
         }
-        return null;
+        return new ArrayList<>();
     }
 
     public List<Moderator> getAllModerators(){
@@ -143,6 +140,6 @@ public class UserHibernateController {
                 session.close();
             }
         }
-        return null;
+        return new ArrayList<>();
     }
 }

@@ -40,7 +40,7 @@ public class FolderWeb {
     @RequestMapping(value = "folder/getAllFolders", method = RequestMethod.GET)
     @ResponseBody
     public String getAllFolders(){
-        List<Folder> folders = folderHibControl.getAllFolders(true,1,1);
+        List<Folder> folders = folderHibControl.getAllFolders();
         return folders.toString();
     }
 

@@ -90,18 +90,13 @@ public class FolderHibernateController {
         return folder;
     }
 
-    public List<Folder> getAllFolders(boolean all, int resMax, int resFirst){
+    public List<Folder> getAllFolders(){
         Session session = null;
         try {
             session = getSession();
             CriteriaQuery<Object> query = session.getCriteriaBuilder().createQuery();
             query.select(query.from(Folder.class));
             Query q = session.createQuery(query);
-
-            if (!all) {
-                q.setMaxResults(resMax);
-                q.setFirstResult(resFirst);
-            }
             return q.getResultList();
         }catch (Exception e){
             e.printStackTrace();

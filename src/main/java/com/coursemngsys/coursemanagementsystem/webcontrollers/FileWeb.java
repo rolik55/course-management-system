@@ -40,7 +40,7 @@ public class FileWeb {
     @RequestMapping(value = "file/getAllFiles", method = RequestMethod.GET)
     @ResponseBody
     public String getAllFiles(){
-        List<File> files = fileHibControl.getAllFiles(true,1,1);
+        List<File> files = fileHibControl.getAllFiles();
         return files.toString();
     }
 

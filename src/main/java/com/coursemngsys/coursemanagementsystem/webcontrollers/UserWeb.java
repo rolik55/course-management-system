@@ -46,7 +46,7 @@ public class UserWeb {
         Connection connection = DbUtils.connectToDb();
         Gson gson = new Gson();
         Properties properties = gson.fromJson(request, Properties.class);
-        User user = userHibControl.getAllUsers(true,0,0).stream().filter(c -> c.getLogin().equals(properties.getProperty(PROPERTY_LOGIN))).filter(c -> c.getPassword().equals(properties.getProperty(PROPERTY_PASSWORD))).findFirst().orElse(null);
+        User user = userHibControl.getAllUsers().stream().filter(c -> c.getLogin().equals(properties.getProperty(PROPERTY_LOGIN))).filter(c -> c.getPassword().equals(properties.getProperty(PROPERTY_PASSWORD))).findFirst().orElse(null);
         GsonBuilder gsonBuilder = new GsonBuilder();
         if(user instanceof Moderator){
             gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateSerializer()).registerTypeAdapter(Moderator.class, new ModeratorSerializer());
@@ -73,7 +73,7 @@ public class UserWeb {
     @RequestMapping(value = "user/getAllUsers", method = RequestMethod.GET)
     @ResponseBody
     public String getAllUsers(){
-        List<User> users = userHibControl.getAllUsers(true,1,1);
+        List<User> users = userHibControl.getAllUsers();
         return users.toString();
     }
 
