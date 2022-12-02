@@ -1,6 +1,7 @@
 package com.coursemngsys.coursemanagementsystem.Model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -12,7 +13,7 @@ public class Moderator extends User{
             joinColumns = { @JoinColumn(name = "moderator_id") },
             inverseJoinColumns = { @JoinColumn(name = "course_id") }
     )
-    private List<Course> moderatedCourses;
+    private List<Course> moderatedCourses = new ArrayList<>();
     @ManyToMany
     private List<Folder> editableFolders;
 
@@ -43,13 +44,17 @@ public class Moderator extends User{
         return moderatedCourses;
     }
 
-    public void setModeratedCourses(Course moderatedCourse) {
-        if(moderatedCourses != null) {
-            moderatedCourses.add(moderatedCourse);
-        }
-        else {
+    public void addModeratedCourse(Course moderatedCourse) {
+        if(moderatedCourses.isEmpty()) {
             moderatedCourses = List.of(moderatedCourse);
         }
+        else {
+            moderatedCourses.add(moderatedCourse);
+        }
+    }
+
+    public void setModeratedCourses(List<Course> courses) {
+        moderatedCourses = courses;
     }
 
     public void removeModeratedCourse(Course course) {
