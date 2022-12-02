@@ -1,6 +1,5 @@
-package com.coursemngsys.coursemanagementsystem.webControllers;
+package com.coursemngsys.coursemanagementsystem.webcontrollers;
 
-import com.coursemngsys.coursemanagementsystem.Model.Course;
 import com.coursemngsys.coursemanagementsystem.Model.Folder;
 import com.coursemngsys.coursemanagementsystem.hibernateControllers.FolderHibernateController;
 import com.google.gson.Gson;
@@ -12,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Properties;
+
+import static com.coursemngsys.coursemanagementsystem.webcontrollers.UserWeb.STATUS_SUCCESS;
 
 @Controller
 public class FolderWeb {
@@ -33,7 +34,7 @@ public class FolderWeb {
         Properties properties = gson.fromJson(request, Properties.class);
         Folder folder = new Folder(properties.getProperty("name"));
         folderHibControl.createFolder(folder);
-        return "Success";
+        return STATUS_SUCCESS;
     }
 
     @RequestMapping(value = "folder/getAllFolders", method = RequestMethod.GET)
@@ -47,7 +48,7 @@ public class FolderWeb {
     @ResponseBody
     public String deleteFolder(@RequestParam("id") int id){
         folderHibControl.removeFolder(id);
-        return "Success";
+        return STATUS_SUCCESS;
     }
 
     @RequestMapping(value = "folder/updateFolder", method = RequestMethod.PUT)
@@ -57,6 +58,6 @@ public class FolderWeb {
         Properties properties = gson.fromJson(request, Properties.class);
         Folder folder = new Folder(properties.getProperty("name"));
         folderHibControl.editFolder(folder);
-        return "Success";
+        return STATUS_SUCCESS;
     }
 }

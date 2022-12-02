@@ -28,7 +28,7 @@ public class CourseHibernateController {
             Transaction transaction = session.beginTransaction();
 
             session.save(course);
-            tx.commit();
+            transaction.commit();
         } catch (Exception e){
             e.printStackTrace();
         } finally {

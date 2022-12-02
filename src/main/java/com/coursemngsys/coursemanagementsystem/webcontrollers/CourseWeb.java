@@ -1,4 +1,4 @@
-package com.coursemngsys.coursemanagementsystem.webControllers;
+package com.coursemngsys.coursemanagementsystem.webcontrollers;
 
 import com.coursemngsys.coursemanagementsystem.Model.Course;
 import com.coursemngsys.coursemanagementsystem.hibernateControllers.CourseHibernateController;
@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Properties;
+
+import static com.coursemngsys.coursemanagementsystem.webcontrollers.UserWeb.STATUS_SUCCESS;
 
 @Controller
 public class CourseWeb {
@@ -40,13 +42,13 @@ public class CourseWeb {
         Properties properties = gson.fromJson(request, Properties.class);
         Course course = new Course(properties.getProperty("title"), properties.getProperty("description"), LocalDate.parse(properties.getProperty("startDate")),LocalDate.parse(properties.getProperty("endDate")));
         courseHibControl.createCourse(course);
-        return "Success";
+        return STATUS_SUCCESS;
     }
 
     @RequestMapping(value = "course/getAllCourses", method = RequestMethod.GET)
     @ResponseBody
     public String getAllCourses(){
-        List<Course> courses = courseHibControl.getAllCourses(true,1,1);
+        List<Course> courses = courseHibControl.getAllCourses();
         GsonBuilder gson = new GsonBuilder();
         gson.registerTypeAdapter(Course.class, new CourseSerializer());
         Gson parser = gson.create();
@@ -57,7 +59,7 @@ public class CourseWeb {
     @ResponseBody
     public String deleteCourse(@RequestParam("id") int id){
         courseHibControl.removeCourse(id);
-        return "Success";
+        return STATUS_SUCCESS;
     }
 
     @RequestMapping(value = "course/updateCourse", method = RequestMethod.PUT)
@@ -68,6 +70,6 @@ public class CourseWeb {
         Course course = new Course(Integer.parseInt(properties.getProperty("id")), properties.getProperty("title"), properties.getProperty("description"));
         //, LocalDate.parse(properties.getProperty("startDate")),LocalDate.parse(properties.getProperty("endDate"))
         courseHibControl.editCourse(course);
-        return "Success";
+        return STATUS_SUCCESS;
     }
 }
