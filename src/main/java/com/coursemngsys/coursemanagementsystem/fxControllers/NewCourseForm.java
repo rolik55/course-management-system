@@ -35,7 +35,7 @@ public class NewCourseForm {
         Course course = new Course(title.getText(), description.getText(), startDate.getValue(), endDate.getValue());
         course.setModerators(moderator);
         courseHibControl.createCourse(course);
-        moderator.setModeratedCourses(course);
+        moderator.addModeratedCourse(course);
         userHibControl.editUser(moderator);
         moderatorCoursesWindow.getModerator(moderator);
         Alert.alertMessage("Course created successfully.");
