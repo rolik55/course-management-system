@@ -3,7 +3,7 @@ package com.coursemngsys.coursemanagementsystem.fxControllers;
 import com.coursemngsys.coursemanagementsystem.Main;
 import com.coursemngsys.coursemanagementsystem.Model.Course;
 import com.coursemngsys.coursemanagementsystem.Model.Moderator;
-import com.coursemngsys.coursemanagementsystem.hibernateControllers.UserHibernateController;
+import com.coursemngsys.coursemanagementsystem.hibernatecontrollers.UserHibernateController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

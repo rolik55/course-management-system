@@ -1,24 +1,18 @@
 package com.coursemngsys.coursemanagementsystem.fxControllers;
 
 import com.coursemngsys.coursemanagementsystem.DbUtils;
-import com.coursemngsys.coursemanagementsystem.Main;
 import com.coursemngsys.coursemanagementsystem.Model.Course;
 import com.coursemngsys.coursemanagementsystem.Model.Moderator;
-import com.coursemngsys.coursemanagementsystem.hibernateControllers.CourseHibernateController;
-import com.coursemngsys.coursemanagementsystem.hibernateControllers.UserHibernateController;
+import com.coursemngsys.coursemanagementsystem.hibernatecontrollers.CourseHibernateController;
+import com.coursemngsys.coursemanagementsystem.hibernatecontrollers.UserHibernateController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import java.io.IOException;
 import java.sql.Connection;
 
 public class NewCourseForm {

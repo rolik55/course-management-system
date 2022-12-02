@@ -1,8 +1,6 @@
-package com.coursemngsys.coursemanagementsystem.hibernateControllers;
+package com.coursemngsys.coursemanagementsystem.hibernatecontrollers;
 
-import com.coursemngsys.coursemanagementsystem.Model.Moderator;
-import com.coursemngsys.coursemanagementsystem.Model.Student;
-import com.coursemngsys.coursemanagementsystem.Model.User;
+import com.coursemngsys.coursemanagementsystem.Model.Course;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -11,10 +9,11 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
-public class UserHibernateController {
-    private SessionFactory factory = null;
+public class CourseHibernateController {
+    private SessionFactory factory;
 
-    public UserHibernateController(SessionFactory factory) {
+
+    public CourseHibernateController(SessionFactory factory) {
         this.factory = factory;
     }
 
@@ -22,12 +21,29 @@ public class UserHibernateController {
         return factory.openSession();
     }
 
-    public void createUser(User user){
+    public void createCourse(Course course){
+        Session session = null;
+        try{
+            session = getSession();
+            Transaction transaction = session.beginTransaction();
+
+            session.save(course);
+            transaction.commit();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if(session != null){
+                session.close();
+            }
+        }
+    }
+
+    public void editCourse(Course course){
         Session session = null;
         try{
             session = getSession();
             Transaction tx = session.beginTransaction();
-            session.save(user);
+            session.merge(course);
             tx.commit();
         } catch (Exception e){
             e.printStackTrace();
@@ -38,13 +54,14 @@ public class UserHibernateController {
         }
     }
 
-    public void editUser(User user){
+    public void removeCourse(int id){
         Session session = null;
         try{
             session = getSession();
             Transaction tx = session.beginTransaction();
-            session.merge(user);
-            //session.update(user);
+            Course course = null;
+            course = getCourseById(id);
+            session.remove(course);
             tx.commit();
         } catch (Exception e){
             e.printStackTrace();
@@ -55,67 +72,27 @@ public class UserHibernateController {
         }
     }
 
-    public void removeUser(int id){
+    public Course getCourseById(int id){
         Session session = null;
-        User user = null;
+        Course course = null;
         try{
             session = getSession();
             Transaction tx = session.beginTransaction();
-            user = session.getReference(User.class, id);
-            session.remove(user);
+            course = session.find(Course.class, id);
+            course.getId();
             tx.commit();
         } catch (Exception e){
-            System.out.println("No such user by given ID");
-        } finally {
-            if(session != null){
-                session.close();
-            }
+            System.out.println("No such course by given ID");
         }
+        return course;
     }
 
-    public User getUserById(int id){
-        Session session = null;
-        User user = null;
-        try{
-            session = getSession();
-            Transaction tx = session.beginTransaction();
-            user = session.find(User.class, id);
-            tx.commit();
-        } catch (Exception e){
-            System.out.println("No such user by given ID");
-        }
-        return user;
-    }
-
-    public List<User> getAllUsers(boolean all, int resMax, int resFirst){
+        public List<Course> getAllCourses(){
         Session session = null;
         try {
             session = getSession();
             CriteriaQuery<Object> query = session.getCriteriaBuilder().createQuery();
-            query.select(query.from(User.class));
-            Query q = session.createQuery(query);
-
-            if (!all) {
-                q.setMaxResults(resMax);
-                q.setFirstResult(resFirst);
-            }
-            return q.getResultList();
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            if(session != null){
-                session.close();
-            }
-        }
-        return null;
-    }
-
-    public List<Student> getAllStudents(){
-        Session session = null;
-        try {
-            session = getSession();
-            CriteriaQuery<Object> query = session.getCriteriaBuilder().createQuery();
-            query.select(query.from(Student.class));
+            query.select(query.from(Course.class));
             Query q = session.createQuery(query);
             return q.getResultList();
         }catch (Exception e){
@@ -127,14 +104,16 @@ public class UserHibernateController {
         }
         return null;
     }
-
-    public List<Moderator> getAllModerators(){
+    
+    public List<Course> getSpecificCourses(int resMax, int resFirst){
         Session session = null;
         try {
             session = getSession();
             CriteriaQuery<Object> query = session.getCriteriaBuilder().createQuery();
-            query.select(query.from(Moderator.class));
+            query.select(query.from(Course.class));
             Query q = session.createQuery(query);
+            q.setMaxResults(resMax);
+            q.setFirstResult(resFirst);
             return q.getResultList();
         }catch (Exception e){
             e.printStackTrace();
