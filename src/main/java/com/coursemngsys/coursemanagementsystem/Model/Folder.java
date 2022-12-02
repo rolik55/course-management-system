@@ -5,6 +5,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -99,7 +100,8 @@ public class Folder implements Comparable<Folder>{
             subFolders.add(folder);
         }
         else {
-            subFolders = List.of(folder);
+            subFolders = new ArrayList<>();
+            subFolders.add(folder);
         }
     }
 
@@ -112,7 +114,8 @@ public class Folder implements Comparable<Folder>{
             editors.add(editor);
         }
         else {
-            editors = List.of(editor);
+            editors = new ArrayList<>();
+            editors.add(editor);
         }
     }
 
