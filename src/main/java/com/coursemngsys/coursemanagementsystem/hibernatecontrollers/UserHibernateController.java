@@ -91,18 +91,13 @@ public class UserHibernateController {
         return user;
     }
 
-    public List<User> getAllUsers(boolean all, int resMax, int resFirst){
+    public List<User> getAllUsers(){
         Session session = null;
         try {
             session = getSession();
             CriteriaQuery<Object> query = session.getCriteriaBuilder().createQuery();
             query.select(query.from(User.class));
             Query q = session.createQuery(query);
-
-            if (!all) {
-                q.setMaxResults(resMax);
-                q.setFirstResult(resFirst);
-            }
             return q.getResultList();
         }catch (Exception e){
             e.printStackTrace();

@@ -7,6 +7,7 @@ import org.hibernate.Transaction;
 
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
+import java.util.Collections;
 import java.util.List;
 
 public class CourseHibernateController {
@@ -102,26 +103,6 @@ public class CourseHibernateController {
                 session.close();
             }
         }
-        return null;
-    }
-    
-    public List<Course> getSpecificCourses(int resMax, int resFirst){
-        Session session = null;
-        try {
-            session = getSession();
-            CriteriaQuery<Object> query = session.getCriteriaBuilder().createQuery();
-            query.select(query.from(Course.class));
-            Query q = session.createQuery(query);
-            q.setMaxResults(resMax);
-            q.setFirstResult(resFirst);
-            return q.getResultList();
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            if(session != null){
-                session.close();
-            }
-        }
-        return null;
+        return Collections.emptyList();
     }
 }

@@ -7,6 +7,8 @@ import org.hibernate.Transaction;
 
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class FolderHibernateController {
@@ -105,7 +107,7 @@ public class FolderHibernateController {
                 session.close();
             }
         }
-        return null;
+        return Collections.emptyList();
     }
 
 }
