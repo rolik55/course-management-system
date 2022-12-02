@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ModeratorCoursesWindow implements Initializable {
+public class ModeratorCoursesWindow {
     @FXML
     private ListView<Course> coursesList;
     @FXML
@@ -45,10 +45,6 @@ public class ModeratorCoursesWindow implements Initializable {
     public void fillList() {
         ObservableList<Course> courses = FXCollections.observableArrayList(moderator.getModeratedCourses());
         coursesList.setItems(courses);
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
     }
 
     public void openNewCourseForm(ActionEvent actionEvent) throws IOException {

@@ -5,8 +5,8 @@
 <hibernate-configuration>
   <session-factory>
     <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-    <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
-    <property name="hibernate.hbm2ddl.auto">update</property>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+    <property name="hibernate.hbm2ddl.auto">validate</property>
     <property name="connection.url">jdbc:mysql://localhost/course_management_system</property>
     <property name="connection.username">root</property>
     <property name="connection.password">1234</property>
