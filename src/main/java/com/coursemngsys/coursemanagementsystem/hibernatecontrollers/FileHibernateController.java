@@ -1,4 +1,4 @@
-package com.coursemngsys.coursemanagementsystem.hibernateControllers;
+package com.coursemngsys.coursemanagementsystem.hibernatecontrollers;
 
 import com.coursemngsys.coursemanagementsystem.Model.File;
 import org.hibernate.Session;
